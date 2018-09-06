@@ -1,0 +1,71 @@
+<html>
+<head>
+<link rel="stylesheet" href="mattStyle.css">
+</head>
+<body>
+  <header>
+    <h1>Linus</h1>
+    <h2>The Goodest Boy in All the Land</h2>
+
+  </header>
+
+  <script>
+  function doInvert(){
+  document.getElementById("linus").style.filter = "invert(100%)";
+  document.getElementById("linus2").style.filter = "invert(100%)";
+  document.getElementById("linus3").style.filter = "invert(100%)";
+  document.getElementById("linus4").style.filter = "invert(100%)";
+  document.getElementById("linus5").style.filter = "invert(100%)";
+  document.getElementById("linus6").style.filter = "invert(100%)";
+  }
+  function unInvert(){
+    document.getElementById("linus").style.filter = "invert(0%)";
+    document.getElementById("linus2").style.filter = "invert(0%)";
+    document.getElementById("linus3").style.filter = "invert(0%)";
+    document.getElementById("linus4").style.filter = "invert(0%)";
+    document.getElementById("linus5").style.filter = "invert(0%)";
+    document.getElementById("linus6").style.filter = "invert(0%)";
+  }
+  var x = 0;
+  function nice(){
+    if(x==0){
+      doInvert();
+      x=1;
+    }
+    else{
+      unInvert();
+      x=0;
+    }
+  }
+  </script>
+
+
+
+<br><br><br>
+
+<div class="grid-container">
+  <div></div>
+  <div></div>
+  <div><button type="button" name="button" onclick="var myVar = setInterval(nice, 50);">Linus is an SCARE</button></div>
+  <div></div>
+  <div></div>
+
+  <div></div>
+  <div><img id="linus" src="linus1.jpg" alt="log o_error"></div>
+  <div><img id="linus2" src="linus2.jpg" alt="log o_error"></div>
+  <div><img id="linus3" src="linus3.jpg" alt="log o_error"></div>
+  <div></div>
+  <div></div>
+  <div><img id="linus4" src="linus4.jpg" alt="log o_error"></div>
+  <div><img id="linus5" src="linus5.jpg" alt="log o_error"></div>
+  <div><img id="linus6" src="linus6.jpg" alt="log o_error"></div>
+
+
+
+
+
+</div>
+
+</body>
+
+</html>
