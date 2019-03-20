@@ -1,6 +1,8 @@
-<link rel="stylesheet" href="https://bootswatch.com/4/flatly/bootstrap.min.css">
+<link rel="stylesheet" href="https://bootswatch.com/4/darkly/bootstrap.min.css">
  
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript" src="scripts.js"></script>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script> -->
  
 <!-- var url = https://apps.runescape.com/runemetrics/profile/profile?user=zee_pk&activities=20 -->
 
@@ -15,7 +17,7 @@
  
 </style>
  
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary" style="padding-right: 5%;">
   <a class="navbar-brand" href="#">UAT</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -36,7 +38,7 @@
         <a class="nav-link" href="#">About</a>
       </li> -->
     </ul>
-    <form class="form-inline my-2 my-lg-0">
+    <form class="form-inline my-2 my-lg-0" onsubmit="return false;">
       <input id="searchbox" class="form-control mr-sm-2" type="text" placeholder="Search" value="">
       <input id="submitbutton" type="button" class="btn btn-secondary my-2 my-sm-0" onclick="populate()" value="Search"></input> 
     </form>
@@ -47,9 +49,12 @@
 </script>
  
 <br>
- 
-<table id="stat-table" class="table table-striped">
-  <h1 id="username" style="padding-left:5%;"></h1>
+<div>
+    <h1 id="username" style="padding-left:5%;width:100%;"></h1>
+</div>
+ <div style="float: left; padding-left: 5%;">
+<table id="stat-table" class="table">
+
   <thead class="table-primary">
     <tr>
       <th scope="col">Stat</th>
@@ -62,98 +67,30 @@
 
   </tbody>
 </table>
+</div>
 
- 
+<div style="float: right; padding-right: 5%;">
+  <table id="activity-table" class="table">
+  <thead class="table-primary">
+    <tr>
+        <th scope="col">Activity Feed</th>
+    </tr>
+    </thead>
+    <tbody>
+
+    </tbody>
+  </table>
+</div>
+
 <script>
 
-    var skill_array = [
-        [0, 'Attack'],
-        [1, 'Defence'],
-        [2, 'Strength'],
-        [3, 'Constitution'],
-        [4, 'Ranged'],
-        [5, 'Prayer'],
-        [6, 'Magic'],
-        [7, 'Cooking'],
-        [8, 'Woodcutting'],
-        [9, 'Fletching'],
-        [10, 'Fishing'],
-        [11, 'Firemaking'],
-        [12, 'Crafting'],
-        [13, 'Smithing'],
-        [14, 'Mining'],
-        [15, 'Herblore'],
-        [16, 'Agility'],
-        [17, 'Thieving'],
-        [18, 'Slayer'],
-        [19, 'Farming'],
-        [20, 'Runecrafting'],
-        [21, 'Hunter'],
-        [22, 'Construction'],
-        [23, 'Summoning'],
-        [24, 'Dungeoneering'],
-        [25, 'Divination'],
-        [26, 'Invention'],
-      ];
-      // var skill_map = new Map(skill_array);
-      // console.log(skill_array[5][1])
-      
+  document.getElementById("searchbox").addEventListener("keypress", function(e) {
 
-      function populate(){
-      player_name = document.getElementById("searchbox").value
-      console.log(player_name)
-      proxyurl = "https://cors-anywhere.herokuapp.com/";
-      // console.log(document.getElementById("searchbox").value)
-      $.ajax({
-      dataType:'json',
-      url: proxyurl + "https://apps.runescape.com/runemetrics/profile/profile?user=" + player_name + "&activities=20.json",
-      type: 'GET',
-      success: function(res) {
-                loadData(res);
-          
-      },
-     error : function(request, error) {
-          console.log("Request: "+JSON.stringify(request))
-      }
-  });
-      }
-  // Create the XHR object.
-  function loadData(res_dict){
-  
-    document.getElementById("username").innerHTML = (res_dict['name'])
-    var stats_dict = {};
-    for(i=0; i<27; i++){
-      var skill_finder = res_dict['skillvalues'][i].id;
-      stats_dict[i] = {
-        skill_id: res_dict['skillvalues'][i],
-        skill_level: res_dict['skillvalues'][i]['level'],
-        skill_xp: res_dict['skillvalues'][i]['xp'],
-        skill_rank: res_dict['skillvalues'][i]['rank'],
-        skill_name: skill_array[skill_finder][1],
-  
-        }
+var key = e.which || e.keyCode || 0;
 
-      document.getElementById(skill_array[skill_finder][1] + 'name').innerHTML = skill_array[skill_finder][1]
-      document.getElementById(skill_array[skill_finder][1] + 'xp').innerHTML = res_dict['skillvalues'][i]['xp']
-      document.getElementById(skill_array[skill_finder][1] + 'rank').innerHTML = res_dict['skillvalues'][i]['rank']
-  
-  
-      
-    }
-  }
-    var table = document.getElementById("stat-table")
-        for(i=0;i<27;i++){
-          table.appendChild(document.createElement("tr"))
-          var x = table.appendChild(document.createElement("td"))
-          x.id = skill_array[i][1] + 'name'
-          var y = table.appendChild(document.createElement("td"))
-          y.id = skill_array[i][1] + 'xp'
-          var z = table.appendChild(document.createElement("td"))
-          z.id = skill_array[i][1] + 'rank'
-          // table.appendChild(document.createElement("tr"))
-          // table.appendChild(document.createElement("td")).innerHTML = stats_dict[i].skill_name
-          // table.appendChild(document.createElement("td")).innerHTML = stats_dict[i].skill_xp
-          // table.appendChild(document.createElement("td")).innerHTML = stats_dict[i].skill_rank
-  
-        }
-  </script>
+if (key === 13) {
+    populate()
+}
+
+});
+create_table()</script>
