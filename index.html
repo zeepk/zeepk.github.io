@@ -14,10 +14,24 @@
         width: 90%;
         margin: 0 auto;
      }
- 
+
+    .grid-container {
+      display: grid;
+      grid-template-columns: auto auto auto;
+      /* background-color: #2196F3; */
+      padding: 10px;
+    }
+    .grid-item {
+      /* background-color: rgba(255, 255, 255, 0.8);
+      border: 1px solid rgba(0, 0, 0, 0.8); */
+      padding: 20px;
+      font-size: 30px;
+      text-align: center;
+    }
+
 </style>
  
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary" style="padding-right: 5%;">
+<nav id="topnav" class="navbar navbar-expand-lg navbar-dark bg-green" style="background-color:darkolivegreen;padding-right: 5%;">
   <a class="navbar-brand" href="#">UAT</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -47,40 +61,53 @@
 <script>
 
 </script>
- 
+
+<!-- GRID -->
+
+ <div class="grid-container">
+  <div class="grid-item">
+      <table id="stat-table" class="table">
+
+          <thead style="background-color:darkolivegreen" class="table-primary">
+            <tr>
+              <th scope="col">Stat</th>
+              <th scope="col">Level</th>
+              <th scope="col">XP</th>
+              <th scope="col">Rank</th>
+              
+            </tr>
+          </thead>
+            <tbody>
+        
+        
+          </tbody>
+        </table>
+  </div>
+  <div class="grid-item">
+
+    <h1 id="username"></h1>
+    <h2 id="rank"></h2>
+    <h2 id="totallevel"></h2>
+    <h2 id="totalxp"></h2>
+
+
+  </div>
+  <div class="grid-item">
+      <table id="activity-table" class="table">
+          <thead style="background-color:darkolivegreen" class="table-primary">
+            <tr>
+                <th scope="col">Activity Feed</th>
+            </tr>
+            </thead>
+            <tbody>
+        
+            </tbody>
+          </table>
+  </div>
+
+</div>
 <br>
-<div>
-    <h1 id="username" style="padding-left:5%;width:100%;"></h1>
-</div>
- <div style="float: left; padding-left: 5%;">
-<table id="stat-table" class="table">
 
-  <thead class="table-primary">
-    <tr>
-      <th scope="col">Stat</th>
-      <th scope="col">XP</th>
-      <th scope="col">Rank</th>
-    </tr>
-  </thead>
-    <tbody>
-
-
-  </tbody>
-</table>
-</div>
-
-<div style="float: right; padding-right: 5%;">
-  <table id="activity-table" class="table">
-  <thead class="table-primary">
-    <tr>
-        <th scope="col">Activity Feed</th>
-    </tr>
-    </thead>
-    <tbody>
-
-    </tbody>
-  </table>
-</div>
 
 <script>
 

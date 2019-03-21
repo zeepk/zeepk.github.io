@@ -1,4 +1,24 @@
 
+
+    player_name = "zee_pk"
+    console.log(player_name)
+    proxyurl = "https://cors-anywhere.herokuapp.com/";
+    // console.log(document.getElementById("searchbox").value)
+    $.ajax({
+    dataType:'json',
+    url: proxyurl + "https://secure.runescape.com/m=hiscore/ranking?table=26&category_type=1&time_filter=0&date=1553122420303&user=" + player_name,
+    type: 'GET',
+    success: function(res) {
+            console.log(res)
+            var points = response.match(/<tr class="hover">\[ ([\d]*?) \]<\/td>/)[1];
+            console.log(points)
+        
+    },
+    error : function(request, error) {
+        console.log("Request: "+JSON.stringify(request))
+    }
+    });
+
 var skill_array = [
     [0, 'Attack'],
     [1, 'Defence'],
@@ -53,8 +73,12 @@ function populate(){
 // Create the XHR object.
 function loadData(res_dict){
 
-
+    var xp = res_dict['totalxp']
+    xp = xp.toLocaleString('en')
     document.getElementById("username").innerHTML = (res_dict['name'])
+    document.getElementById("rank").innerHTML = (res_dict['rank'])
+    document.getElementById("totallevel").innerHTML = (res_dict['totalskill'])
+    document.getElementById("totalxp").innerHTML = xp
     if (!(res_dict['name'])){
         alert("User not found")
         return;
@@ -72,6 +96,8 @@ function loadData(res_dict){
         }
 
         document.getElementById(skill_array[skill_finder][1] + 'name').innerHTML = skill_array[skill_finder][1]
+        document.getElementById(skill_array[skill_finder][1] + 'level').innerHTML = res_dict['skillvalues'][i]['level']
+
         var exp = res_dict['skillvalues'][i]['xp']
         exp = (exp-(exp%10))/10;
         exp = exp.toLocaleString('en')
@@ -91,6 +117,8 @@ function create_table(){
             table.appendChild(document.createElement("tr"))
             var x = table.appendChild(document.createElement("td"))
             x.id = skill_array[i][1] + 'name'
+            var t = table.appendChild(document.createElement("td"))
+            t.id = skill_array[i][1] + 'level'
             var y = table.appendChild(document.createElement("td"))
             y.id = skill_array[i][1] + 'xp'
             var z = table.appendChild(document.createElement("td"))
