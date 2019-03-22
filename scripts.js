@@ -1,23 +1,30 @@
 
 
-    player_name = "zee_pk"
-    console.log(player_name)
-    proxyurl = "https://cors-anywhere.herokuapp.com/";
-    // console.log(document.getElementById("searchbox").value)
-    $.ajax({
-    dataType:'json',
-    url: proxyurl + "https://secure.runescape.com/m=hiscore/ranking?table=26&category_type=1&time_filter=0&date=1553122420303&user=" + player_name,
-    type: 'GET',
-    success: function(res) {
-            console.log(res)
-            var points = response.match(/<tr class="hover">\[ ([\d]*?) \]<\/td>/)[1];
-            console.log(points)
+//     player_name = "a_magic"
+//     player_name_plus = player_name.replace("_", "+")
+//     console.log(player_name)
+//     proxyurl = "https://cors-anywhere.herokuapp.com/";
+//     // console.log(document.getElementById("searchbox").value)
+//     $.ajax({
+
+//         url: proxyurl + "https://secure.runescape.com/m=hiscore/ranking?table=26&category_type=1&time_filter=0&date=1553122420303&user=" + player_name_plus,
+//         dataType: 'text',
+//         success: function(data) {
+//             // console.log(data)
+//                 alert("processing runescore")
+//                 data = data.toLowerCase()
+//                 var partsarray = data.split('http://services.runescape.com/m=hiscore/compare?user1=' + player_name_plus + '&amp;category_type=1">')
+
+//                 var data_string = (partsarray[partsarray.length-1])
+//                 var anotherpartsarray = data_string.split('</a')
+//                 var runescore = anotherpartsarray[0]
+//                 console.log(runescore)
+//                 console.log(data)
+//                 // loadRunescore(runescore)
+//              }
         
-    },
-    error : function(request, error) {
-        console.log("Request: "+JSON.stringify(request))
-    }
-    });
+//    });
+
 
 var skill_array = [
     [0, 'Attack'],
@@ -54,6 +61,9 @@ var skill_array = [
 
 function populate(){
         player_name = document.getElementById("searchbox").value
+        player_name_plus = player_name.replace("_", "+")
+        player_name_plus =  player_name_plus.replace(" ", "+")
+
         console.log(player_name)
         proxyurl = "https://cors-anywhere.herokuapp.com/";
         // console.log(document.getElementById("searchbox").value)
@@ -69,21 +79,54 @@ function populate(){
             console.log("Request: "+JSON.stringify(request))
         }
     });
+    $.ajax({
+
+        url: proxyurl + "https://secure.runescape.com/m=hiscore/ranking?table=26&category_type=1&time_filter=0&date=1553122420303&user=" + player_name_plus,
+        dataType: 'text',
+        success: function(data) {
+            // console.log(data)
+                // alert("processing runescore")
+                data = data.toLowerCase()
+                var partsarray = data.split('http://services.runescape.com/m=hiscore/compare?user1=' + player_name_plus + '&amp;category_type=1">')
+                // alert(partsarray.length)
+                var data_string = (partsarray[partsarray.length-1])
+                var anotherpartsarray = data_string.split('</a')
+                var runescore = anotherpartsarray[0]
+                // console.log(runescore)
+                if(runescore.length > 10){
+                    return;
+                }
+                loadRunescore(runescore)
+             }
+        
+   });
     }
 // Create the XHR object.
-function loadData(res_dict){
 
-    var xp = res_dict['totalxp']
-    xp = xp.toLocaleString('en')
-    document.getElementById("username").innerHTML = (res_dict['name'])
-    document.getElementById("rank").innerHTML = (res_dict['rank'])
-    document.getElementById("totallevel").innerHTML = (res_dict['totalskill'])
-    document.getElementById("totalxp").innerHTML = xp
+function loadRunescore(data){
+    document.getElementById("runescore").innerHTML = "Runescore: " + data
+}
+
+function loadData(res_dict){
     if (!(res_dict['name'])){
         alert("User not found")
         return;
     }
+
+    var xp = res_dict['totalxp']
+    xp = xp.toLocaleString('en')
+    document.getElementById("username").innerHTML = (res_dict['name'])
+ 
+    document.getElementById("avatar").src = "http://secure.runescape.com/m=avatar-rs/" + player_name + "/chat.png"
+
+
+    document.getElementById("overallname").innerHTML = 'Overall'
+    document.getElementById("overallrank").innerHTML = (res_dict['rank'])
+    document.getElementById("overalllevel").innerHTML = (res_dict['totalskill'])
+    document.getElementById("overallxp").innerHTML = xp
+
     var stats_dict = {};
+    
     for(i=0; i<27; i++){
         var skill_finder = res_dict['skillvalues'][i].id;
         stats_dict[i] = {
@@ -98,6 +141,7 @@ function loadData(res_dict){
         document.getElementById(skill_array[skill_finder][1] + 'name').innerHTML = skill_array[skill_finder][1]
         document.getElementById(skill_array[skill_finder][1] + 'level').innerHTML = res_dict['skillvalues'][i]['level']
 
+        // changing to commas
         var exp = res_dict['skillvalues'][i]['xp']
         exp = (exp-(exp%10))/10;
         exp = exp.toLocaleString('en')
@@ -105,6 +149,10 @@ function loadData(res_dict){
         document.getElementById(skill_array[skill_finder][1] + 'xp').innerHTML = exp
         document.getElementById(skill_array[skill_finder][1] + 'rank').innerHTML = res_dict['skillvalues'][i]['rank']
     }
+    var stat_table = document.getElementById("stat-table")
+    var activity_table = document.getElementById("activity-table")
+    stat_table.style.display = "block"
+    activity_table.style.display = "block"
     for(j=0;j<20;j++){
         // console.log(res_dict['activities'][j]['text'])
         document.getElementById('activity'+j).innerHTML = res_dict['activities'][j]['text']
@@ -113,6 +161,22 @@ function loadData(res_dict){
 }
 function create_table(){
     var table = document.getElementById("stat-table")
+    // var overall = table.appendChild(document.createElement("td"))
+    // overall.id = "overall"
+    var oa = table.appendChild(document.createElement("tr"))
+    
+    var x = table.appendChild(document.createElement("td"))
+    x.id = 'overallname'
+    x.style = "font-weight:bold;"
+    var t = table.appendChild(document.createElement("td"))
+    t.id = 'overalllevel'
+    t.style = "font-weight:bold;"
+    var y = table.appendChild(document.createElement("td"))
+    y.id = 'overallxp'
+    y.style = "font-weight:bold;"
+    var z = table.appendChild(document.createElement("td"))
+    z.id = 'overallrank'
+    z.style = "font-weight:bold;"
         for(i=0;i<27;i++){
             table.appendChild(document.createElement("tr"))
             var x = table.appendChild(document.createElement("td"))

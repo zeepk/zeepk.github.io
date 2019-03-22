@@ -10,28 +10,32 @@
 
  
 <style>
-    #stat-table {
-        width: 90%;
-        margin: 0 auto;
-     }
+    #activity-table  {
+      width: auto;
+      margin-right: 0px;
+      margin-left: auto;
+    }
 
     .grid-container {
       display: grid;
-      grid-template-columns: auto auto auto;
+      grid-template-columns: 33% 33% 33%;
       /* background-color: #2196F3; */
       padding: 10px;
+
     }
     .grid-item {
+      max-width: 100%;
       /* background-color: rgba(255, 255, 255, 0.8);
       border: 1px solid rgba(0, 0, 0, 0.8); */
-      padding: 20px;
+      /* padding: 20px; */
       font-size: 30px;
       text-align: center;
+
     }
 
 </style>
  
-<nav id="topnav" class="navbar navbar-expand-lg navbar-dark bg-green" style="background-color:darkolivegreen;padding-right: 5%;">
+<nav id="topnav" class="navbar navbar-expand-lg navbar-dark bg-green" style="padding-right: 5%;">
   <a class="navbar-brand" href="#">UAT</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -42,15 +46,7 @@
       <li class="nav-item active">
         <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
       </li>
-      <!-- <li class="nav-item">
-        <a class="nav-link" href="#">Features</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Pricing</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">About</a>
-      </li> -->
+
     </ul>
     <form class="form-inline my-2 my-lg-0" onsubmit="return false;">
       <input id="searchbox" class="form-control mr-sm-2" type="text" placeholder="Search" value="">
@@ -66,9 +62,9 @@
 
  <div class="grid-container">
   <div class="grid-item">
-      <table id="stat-table" class="table">
+      <table id="stat-table" class="table" style="display:none;">
 
-          <thead style="background-color:darkolivegreen" class="table-primary">
+          <thead class="table-primary">
             <tr>
               <th scope="col">Stat</th>
               <th scope="col">Level</th>
@@ -86,15 +82,14 @@
   <div class="grid-item">
 
     <h1 id="username"></h1>
-    <h2 id="rank"></h2>
-    <h2 id="totallevel"></h2>
-    <h2 id="totalxp"></h2>
+    <img id="avatar" src="">
+    <h2 id="runescore"></h2>
 
 
   </div>
   <div class="grid-item">
-      <table id="activity-table" class="table">
-          <thead style="background-color:darkolivegreen" class="table-primary">
+      <table id="activity-table" class="table" style="display:none;" align="right">
+          <thead class="table-primary">
             <tr>
                 <th scope="col">Activity Feed</th>
             </tr>
