@@ -25,13 +25,26 @@
 
     }
     .grid-item {
-      max-width: 100%;
+      max-width: 100%; 
       /* background-color: rgba(255, 255, 255, 0.8);
       border: 1px solid rgba(0, 0, 0, 0.8); */
       /* padding: 20px; */
       font-size: 30px;
       text-align: center;
 
+    }
+    .grid-profile {
+      display: grid;
+      grid-template-columns: 50% 50%;
+      /* grid-template-rows: 10% 10% 10%; */
+      background-color: #2196F3;
+      padding: 10px;
+
+    }
+    .grid-item-prof {
+      background-color: rgba(255, 255, 255, 0.8);
+      border: 1px solid rgba(0, 0, 0, 0.8);
+      font-size: 20px;
     }
 
 </style>
@@ -49,7 +62,7 @@
       </li>
 
     </ul>
-    <form class="form-inline my-2 my-lg-0" onsubmit="return false;">
+    <form class="form-inline my-2 my-lg-0" onsubmit="return false;">  
       <input id="searchbox" class="form-control mr-sm-2" type="text" placeholder="Search" value="">
       <input id="submitbutton" type="button" class="btn btn-secondary my-2 my-sm-0" onclick="populate()" value="Search"></input> 
     </form>
@@ -81,10 +94,18 @@
         </table>
   </div>
   <div class="grid-item">
+      <div class="grid-profile">
+          <div class="grid-item-prof"><img id="avatar" src="" style="float:right;"></div>
+          <div class="grid-item-prof"><h1 id="username"></h1></div>
+          <div class="grid-item-prof"><p style="float:right;">RuneScore:</p></div>
+          <div class="grid-item-prof"><h2 id="runescore"></h2></div>  
+          <div class="grid-item-prof"></div>
+          <div class="grid-item-prof"></div>
 
-    <h1 id="username"></h1>
-    <img id="avatar" src="">
-    <h2 id="runescore"></h2>
+
+
+
+
 
 
   </div>

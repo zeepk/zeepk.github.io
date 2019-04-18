@@ -1,4 +1,4 @@
-populate()
+// populate()
 var data_array = [
     [0, 'Overall'],
     [1, 'Attack'],
@@ -64,10 +64,12 @@ var data_array = [
 
 
 function populate() {
-    // player_name = document.getElementById("searchbox").value
-    player_name = "zee_pk"
-    player_name_plus = player_name.replace("_", "+")
-    player_name_plus = player_name_plus.replace(" ", "+")
+
+    player_name = document.getElementById("searchbox").value
+    // player_name = "zee_pk"
+
+    // player_name_plus = player_name.replace("", "+")
+    player_name = player_name.replace(" ", "_")
 
     console.log(player_name)
     proxyurl = "https://cors-anywhere.herokuapp.com/";
@@ -90,7 +92,12 @@ function populate() {
         url: proxyurl + "https://apps.runescape.com/runemetrics/profile/profile?user=" + player_name + "&activities=20",
         type: 'GET',
         success: function(res) {
-                loadActivities(res);
+                try {
+                    loadActivities(res);
+                    
+                } catch (error) {
+                    console.log("USer's profile is set to private")
+                }
             
         },
         error : function(request, error) {
@@ -125,10 +132,10 @@ function loadData(res, player_name) {
         minigames[i] = {
             id: i,
             name: data_array[i][1],
-            score: individual_minigame_array[0],
-            rank: individual_minigame_array[1],
-
+            rank: individual_minigame_array[0],
+            score: individual_minigame_array[1],
         }
+
     }
     for (i = 0; i < 28; i++) {
         document.getElementById(i + 'name').innerHTML = skills[i].name
@@ -139,7 +146,8 @@ function loadData(res, player_name) {
     }
 
 
-
+    document.getElementById("username").innerHTML = player_name.replace('_', ' ')
+    document.getElementById("runescore").innerHTML = minigames[52].score
     document.getElementById("avatar").src = "http://secure.runescape.com/m=avatar-rs/" + player_name + "/chat.png"
 
 
