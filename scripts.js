@@ -1,4 +1,4 @@
-// populate()
+// populate()           
 var data_array = [
     [0, 'Overall'],
     [1, 'Attack'],
@@ -96,7 +96,7 @@ function populate() {
                     loadActivities(res);
                     
                 } catch (error) {
-                    console.log("USer's profile is set to private")
+                    console.log("User's profile is set to private")
                 }
             
         },
@@ -129,11 +129,13 @@ function loadData(res, player_name) {
     }
     for (i = 28; i < 57; i++) {
         var individual_minigame_array = temp_data_array[i].split(",")
+        score = individual_minigame_array[1]
+        score = parseInt(score, 10)
         minigames[i] = {
             id: i,
             name: data_array[i][1],
             rank: individual_minigame_array[0],
-            score: individual_minigame_array[1],
+            score: score.toLocaleString('en')
         }
 
     }
@@ -146,9 +148,13 @@ function loadData(res, player_name) {
     }
 
 
+    // document.getElementById("static-info").style.visibility = "visible";
     document.getElementById("username").innerHTML = player_name.replace('_', ' ')
-    document.getElementById("runescore").innerHTML = minigames[52].score
     document.getElementById("avatar").src = "http://secure.runescape.com/m=avatar-rs/" + player_name + "/chat.png"
+    document.getElementById("runescore").innerHTML = minigames[52].score
+    document.getElementById("runescore-rank").innerHTML = minigames[52].rank
+    document.getElementById("total-xp").innerHTML = skills[0].xp
+    document.getElementById("total-xp-rank").innerHTML = skills[0].rank
 
 
 
@@ -160,7 +166,14 @@ function loadData(res, player_name) {
 function loadActivities (res_dict){
     for (j = 0; j < 20; j++) {
         // console.log(res_dict['activities'][j]['text'])
-        document.getElementById('activity' + j).innerHTML = res_dict['activities'][j]['text']
+        act_text = res_dict['activities'][j]['text']
+        var xp_index = act_text.indexOf('XP')
+        if (xp_index > 0){
+            sub_1 = act_text.substring(0,xp_index-6)
+            sub_2 = act_text.substring(xp_index+2,act_text.length)
+            act_text = sub_1 + 'm XP' + sub_2
+        }
+        document.getElementById('activity' + j).innerHTML = act_text 
         document.getElementById('activity' + j).setAttribute("title", res_dict['activities'][j]['date'])
     }
     var activity_table = document.getElementById("activity-table")

@@ -25,9 +25,9 @@
 
     }
     .grid-item {
-      max-width: 100%; 
-      /* background-color: rgba(255, 255, 255, 0.8);
-      border: 1px solid rgba(0, 0, 0, 0.8); */
+      /* max-width: 100%;  */
+      /* background-color: rgba(255, 255, 255, 0.8); */
+      /* border: 1px solid rgba(0, 0, 0, 0.8); */
       /* padding: 20px; */
       font-size: 30px;
       text-align: center;
@@ -37,13 +37,13 @@
       display: grid;
       grid-template-columns: 50% 50%;
       /* grid-template-rows: 10% 10% 10%; */
-      background-color: #2196F3;
+      /* background-color: #2196F3; */
       padding: 10px;
 
     }
     .grid-item-prof {
-      background-color: rgba(255, 255, 255, 0.8);
-      border: 1px solid rgba(0, 0, 0, 0.8);
+      /* background-color: rgba(255, 255, 255, 0.8); */
+      /* border: 1px solid rgba(0, 0, 0, 0.8); */
       font-size: 20px;
     }
 
@@ -93,14 +93,22 @@
           </tbody>
         </table>
   </div>
+
   <div class="grid-item">
+      <div><img id="avatar" src=""></div>
+      <div><h1 id="username"></h1></div>
       <div class="grid-profile">
-          <div class="grid-item-prof"><img id="avatar" src="" style="float:right;"></div>
-          <div class="grid-item-prof"><h1 id="username"></h1></div>
-          <div class="grid-item-prof"><p style="float:right;">RuneScore:</p></div>
-          <div class="grid-item-prof"><h2 id="runescore"></h2></div>  
-          <div class="grid-item-prof"></div>
-          <div class="grid-item-prof"></div>
+          <!-- runescore info -->
+          <div class="grid-item-prof"><p>RuneScore:</p></div>
+          <div class="grid-item-prof"><p id="runescore"></p></div>  
+          <div class="grid-item-prof"><small>Rank:</small></div>
+          <div class="grid-item-prof"><p id="runescore-rank"></p></div>
+
+          <!-- total xp info -->
+          <div class="grid-item-prof"><p>Total XP:</p></div>
+          <div class="grid-item-prof"><p id="total-xp"></p></div>  
+          <div class="grid-item-prof"><small>Rank:</small></div>
+          <div class="grid-item-prof"><p id="total-xp-rank"></p></div>
 
 
 
@@ -109,8 +117,8 @@
 
 
   </div>
-  <div class="grid-item"></div>
-  <div class="grid-item"></div>
+</div>
+
 
   <div class="grid-item">
       <table id="activity-table" class="table" style="display:none;" align="right">
