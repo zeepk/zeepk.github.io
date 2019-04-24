@@ -19,18 +19,32 @@
     .grid-container {
       display: grid;
       grid-template-columns: 33% 33% 33%;
+      grid-template-rows: 10% 10% 10%;
       /* background-color: #2196F3; */
       padding: 10px;
 
     }
     .grid-item {
-      max-width: 100%;
-      /* background-color: rgba(255, 255, 255, 0.8);
-      border: 1px solid rgba(0, 0, 0, 0.8); */
+      /* max-width: 100%;  */
+      /* background-color: rgba(255, 255, 255, 0.8); */
+      /* border: 1px solid rgba(0, 0, 0, 0.8); */
       /* padding: 20px; */
       font-size: 30px;
       text-align: center;
 
+    }
+    .grid-profile {
+      display: grid;
+      grid-template-columns: 50% 50%;
+      /* grid-template-rows: 10% 10% 10%; */
+      /* background-color: #2196F3; */
+      padding: 10px;
+
+    }
+    .grid-item-prof {
+      /* background-color: rgba(255, 255, 255, 0.8); */
+      /* border: 1px solid rgba(0, 0, 0, 0.8); */
+      font-size: 20px;
     }
 
 </style>
@@ -48,7 +62,7 @@
       </li>
 
     </ul>
-    <form class="form-inline my-2 my-lg-0" onsubmit="return false;">
+    <form class="form-inline my-2 my-lg-0" onsubmit="return false;">  
       <input id="searchbox" class="form-control mr-sm-2" type="text" placeholder="Search" value="">
       <input id="submitbutton" type="button" class="btn btn-secondary my-2 my-sm-0" onclick="populate()" value="Search"></input> 
     </form>
@@ -79,14 +93,33 @@
           </tbody>
         </table>
   </div>
-  <div class="grid-item">
 
-    <h1 id="username"></h1>
-    <img id="avatar" src="">
-    <h2 id="runescore"></h2>
+  <div class="grid-item">
+      <div><img id="avatar" src=""></div>
+      <div><h1 id="username"></h1></div>
+      <div class="grid-profile">
+          <!-- runescore info -->
+          <div class="grid-item-prof"><p>RuneScore:</p></div>
+          <div class="grid-item-prof"><p id="runescore"></p></div>  
+          <div class="grid-item-prof"><small>Rank:</small></div>
+          <div class="grid-item-prof"><p id="runescore-rank"></p></div>
+
+          <!-- total xp info -->
+          <div class="grid-item-prof"><p>Total XP:</p></div>
+          <div class="grid-item-prof"><p id="total-xp"></p></div>  
+          <div class="grid-item-prof"><small>Rank:</small></div>
+          <div class="grid-item-prof"><p id="total-xp-rank"></p></div>
+
+
+
+
+
 
 
   </div>
+</div>
+
+
   <div class="grid-item">
       <table id="activity-table" class="table" style="display:none;" align="right">
           <thead class="table-primary">
