@@ -73,40 +73,41 @@ function populate() {
 
     console.log(player_name)
     proxyurl = "https://cors-anywhere.herokuapp.com/";
-    // console.log(document.getElementById("searchbox").value)
+
+    //gathers stats, minigame data
     $.ajax({
         dataType: 'text',
         url: proxyurl + "https://secure.runescape.com/m=hiscore/index_lite.ws?player=" + player_name,
         type: 'GET',
         success: function (res) {
             loadData(res, player_name)
-
-
+            $.ajax({
+                dataType:'json',
+                url: proxyurl + "https://apps.runescape.com/runemetrics/profile/profile?user=" + player_name + "&activities=20",
+                type: 'GET',
+                success: function(res) {
+                        try {
+                            loadActivities(res);
+                        } catch (error) {
+                            clearActivities();
+                            alert("User's RuneMetrics profile is set to private. Activity may not display.")
+                        }
+                    
+                },
+                error : function(request, error) {
+                    console.log("Request: "+JSON.stringify(request))
+                }
+            });
         },
         error: function (request, error) {
-            console.log("Request: " + JSON.stringify(request))
+            alert("Player not found")
         }
     });
-    $.ajax({
-        dataType:'json',
-        url: proxyurl + "https://apps.runescape.com/runemetrics/profile/profile?user=" + player_name + "&activities=20",
-        type: 'GET',
-        success: function(res) {
-                try {
-                    loadActivities(res);
-                    
-                } catch (error) {
-                    console.log("User's profile is set to private")
-                }
-            
-        },
-        error : function(request, error) {
-            console.log("Request: "+JSON.stringify(request))
-        }
-    });
-}
-// Create the XHR object.
 
+    //gathers activity log data
+
+
+}
 
 
 function loadData(res, player_name) {
@@ -155,13 +156,15 @@ function loadData(res, player_name) {
     document.getElementById("runescore-rank").innerHTML = minigames[52].rank
     document.getElementById("total-xp").innerHTML = skills[0].xp
     document.getElementById("total-xp-rank").innerHTML = skills[0].rank
-
+    var profile_info = document.getElementById("profile-info")
+    profile_info.style.visibility = "visible"
 
 
     var stat_table = document.getElementById("stat-table")
     stat_table.style.display = "block"
 
 }
+
 
 function loadActivities (res_dict){
     for (j = 0; j < 20; j++) {
@@ -179,6 +182,11 @@ function loadActivities (res_dict){
     var activity_table = document.getElementById("activity-table")
     activity_table.style.display = "block"
 
+}
+
+function clearActivities(){
+    var activity_table = document.getElementById("activity-table")
+    activity_table.style.display = "none"
 }
 
 function create_table() {
