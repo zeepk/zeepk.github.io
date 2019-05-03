@@ -94,28 +94,22 @@
         </table>
   </div>
 
+
   <div class="grid-item">
       <div><img id="avatar" src=""></div>
       <div><h1 id="username"></h1></div>
-      <div class="grid-profile">
+      <div id="profile-info" class="grid-profile" style="visibility:hidden;">
           <!-- runescore info -->
           <div class="grid-item-prof"><p>RuneScore:</p></div>
-          <div class="grid-item-prof"><p id="runescore"></p></div>  
+          <div class="grid-item-prof"> <img src="RuneScore.png" alt="" style="display: inline-block;"> <p id="runescore" style="display: inline-block;"></p></div>  
           <div class="grid-item-prof"><small>Rank:</small></div>
           <div class="grid-item-prof"><p id="runescore-rank"></p></div>
 
           <!-- total xp info -->
           <div class="grid-item-prof"><p>Total XP:</p></div>
-          <div class="grid-item-prof"><p id="total-xp"></p></div>  
+          <div class="grid-item-prof"> <img src="skillsIcon.png" alt="" style="display: inline-block;"> <p id="total-xp" style="display: inline-block;"></p></div>  
           <div class="grid-item-prof"><small>Rank:</small></div>
           <div class="grid-item-prof"><p id="total-xp-rank"></p></div>
-
-
-
-
-
-
-
   </div>
 </div>
 
@@ -144,7 +138,9 @@
 var key = e.which || e.keyCode || 0;
 
 if (key === 13) {
-    populate()
+    // populate()
+    submit_button = document.getElementById("submitbutton");
+    submit_button.click();
 }
 
 });
