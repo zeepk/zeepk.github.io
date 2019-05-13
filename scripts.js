@@ -65,6 +65,8 @@ var data_array = [
 
 function populate() {
 
+    document.getElementById("loading").style.visibility = "visible";
+
     player_name = document.getElementById("searchbox").value
     // player_name = "zee_pk"
 
@@ -105,7 +107,7 @@ function populate() {
     });
 
     //gathers activity log data
-
+    
 
 }
 
@@ -162,6 +164,8 @@ function loadData(res, player_name) {
 
     var stat_table = document.getElementById("stat-table")
     stat_table.style.display = "block"
+
+    document.getElementById("loading").style.visibility = "hidden";
 
 }
 
@@ -221,5 +225,4 @@ function create_table() {
         var n = activity.appendChild(document.createElement("td"))
         n.id = 'activity' + i
     }
-
 }
