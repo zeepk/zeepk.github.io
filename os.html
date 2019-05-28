@@ -1,7 +1,7 @@
 <link rel="stylesheet" href="https://bootswatch.com/4/darkly/bootstrap.min.css">
  
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script type="text/javascript" src="scripts.js"></script>
+<script type="text/javascript" src="os_scripts.js"></script>
 <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script> -->
  
 <!-- var url = https://apps.runescape.com/runemetrics/profile/profile?user=zee_pk&activities=20 -->
@@ -57,11 +57,11 @@
  
   <div class="collapse navbar-collapse" id="navbarColor01">
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-      </li>
       <li class="nav-item">
-        <a class="nav-link" href="os.html">OSRS</a>
+        <a class="nav-link" href="index.html">Home</a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="#">OSRS <span class="sr-only">(current)</span></a></a>
       </li>
 
     </ul>
@@ -101,14 +101,10 @@
       <!-- testing loading -->
       <img src="loading.gif" id="loading" style="visibility: hidden; position: absolute;">
       <!-- end testing loading -->
-      <div><img id="avatar" src=""></div>
+      
       <div><h1 id="username"></h1></div>
       <div id="profile-info" class="grid-profile" style="visibility:hidden;">
-          <!-- runescore info -->
-          <div class="grid-item-prof"><p>RuneScore:</p></div>
-          <div class="grid-item-prof"> <img src="RuneScore.png" alt="" style="display: inline-block;"> <p id="runescore" style="display: inline-block;"></p></div>  
-          <div class="grid-item-prof"><small>Rank:</small></div>
-          <div class="grid-item-prof"><p id="runescore-rank"></p></div>
+
 
           <!-- total xp info -->
           <div class="grid-item-prof"><p>Total XP:</p></div>
@@ -123,7 +119,9 @@
       <table id="activity-table" class="table" style="display:none;" align="right">
           <thead class="table-primary">
             <tr>
-                <th scope="col">Activity Feed</th>
+                <th scope="col">Activity</th>
+                <th scope="col">Score</th>
+                <th scope="col">Rank</th>
             </tr>
             </thead>
             <tbody>
@@ -149,4 +147,5 @@ if (key === 13) {
 }
 
 });
-create_table()</script>
+create_table()
+</script>

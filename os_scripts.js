@@ -1,64 +1,3 @@
-  // populate()           
-  var data_array = [
-    [0, 'Overall'],
-    [1, 'Attack'],
-    [2, 'Defence'],
-    [3, 'Strength'],
-    [4, 'Constitution'],
-    [5, 'Ranged'],
-    [6, 'Prayer'],
-    [7, 'Magic'],
-    [8, 'Cooking'],
-    [9, 'Woodcutting'],
-    [10, 'Fletching'],
-    [11, 'Fishing'],
-    [12, 'Firemaking'],
-    [13, 'Crafting'],
-    [14, 'Smithing'],
-    [15, 'Mining'],
-    [16, 'Herblore'],
-    [17, 'Agility'],
-    [18, 'Thieving'],
-    [19, 'Slayer'],
-    [20, 'Farming'],
-    [21, 'Runecrafting'],
-    [22, 'Hunter'],
-    [23, 'Construction'],
-    [24, 'Summoning'],
-    [25, 'Dungeoneering'],
-    [26, 'Divination'],
-    [27, 'Invention'],
-    [28, 'Bounty Hunter'],
-    [29, 'BH: Rogue'],
-    [30, 'Dominion Tower'],
-    [31, 'The Crucible'],
-    [32, 'Castle Wars'],
-    [33, 'BA: Attacker'],
-    [34, 'BA: Defender'],
-    [35, 'BA: Collector'],
-    [36, 'BA: Healer'],
-    [37, 'Duel Tournament'],
-    [38, 'Mobilizing Armies'],
-    [39, 'Conquest'],
-    [40, 'Fist of Guthix'],
-    [41, 'GG: Resource Race'],
-    [42, 'GG: Athletics'],
-    [43, 'WE2: Armadyl Lifetime'],
-    [44, 'WE2: Bandos Lifetime'],
-    [45, 'WE2: Armadyl PvP Kills'],
-    [46, 'WE2: Bandos PvP Kills'],
-    [47, 'Heist Guard Level'],
-    [48, 'Heist Robber Level'],
-    [49, 'CFP 5 Game Average'],
-    [50, 'UNK'],
-    [51, 'UNK'],
-    [52, 'Runescore'],
-    [53, 'Easy Clues'],
-    [54, 'Medium Clues'],
-    [55, 'Hard Clues'],
-    [56, 'Elite Clues'],
-    [57, 'Master Clues'],
-  ];
 
   var os_data_array= [
     [0, 'Overall'],
@@ -112,35 +51,19 @@
     console.log(player_name)
     var proxyurl = "https://cors-anywhere.herokuapp.com/";
   
-    //gathers stats, minigame data
-    // $.ajax({
-    //     dataType: 'text',
-    //     url: proxyurl + "https://secure.runescape.com/m=hiscore/index_lite.ws?player=" + player_name,
-    //     type: 'GET',
-    //     success: function (res) {
-    //         loadData(res, player_name)
-    //         $.ajax({
-    //             dataType:'json',
-    //             url: proxyurl + "https://apps.runescape.com/runemetrics/profile/profile?user=" + player_name + "&activities=20",
-    //             type: 'GET',
-    //             success: function(res) {
-    //                     try {
-    //                         loadActivities(res);
-    //                     } catch (error) {
-    //                         clearActivities();
-    //                         alert("User's RuneMetrics profile is set to private. Activity may not display.")
-    //                     }
-                    
-    //             },
-    //             error : function(request, error) {
-    //                 console.log("Request: "+JSON.stringify(request))
-    //             }
-    //         });
-    //     },
-    //     error: function (request, error) {
-    //         alert("Player not found")
-    //     }
-    // });
+    // gathers stats, minigame data
+    $.ajax({
+        dataType: 'text',
+        url: proxyurl + "https://secure.runescape.com/m=hiscore_oldschool/index_lite.ws?player=" + player_name,
+        type: 'GET',
+        success: function (res) {
+            loadData(res, player_name)
+            
+        },
+        error: function (request, error) {
+            alert("Player not found")
+        }
+    });
   
     //gathers activity log data
     
@@ -153,45 +76,49 @@
     var skills = {}
     var minigames = {}
     var temp_data_array = res.split("\n")
-    for (var i = 0; i < 28; i++) {
+    for (var i = 0; i < 24; i++) {
         var individual_skill_array = temp_data_array[i].split(",")
         var xp = individual_skill_array[2]
         xp = parseInt(xp, 10)
         skills[i] = {
             id: i,
-            name: data_array[i][1],
+            name: os_data_array[i][1],
             rank: individual_skill_array[0],
             level: individual_skill_array[1],
             xp: xp.toLocaleString('en')
         }
   
     }
-    for (i = 28; i < 57; i++) {
+    for (i = 24; i < 32; i++) {
         var individual_minigame_array = temp_data_array[i].split(",")
         var score = individual_minigame_array[1]
         score = parseInt(score, 10)
         minigames[i] = {
             id: i,
-            name: data_array[i][1],
+            name: os_data_array[i][1],
             rank: individual_minigame_array[0],
             score: score.toLocaleString('en')
         }
+        // console.log(minigames[i].name)
   
     }
-    for (i = 0; i < 28; i++) {
+    for (i = 0; i < 24; i++) {
         document.getElementById(i + 'name').innerHTML = skills[i].name
         document.getElementById(i + 'level').innerHTML = skills[i].level
         document.getElementById(i + 'rank').innerHTML = skills[i].rank
         document.getElementById(i + 'xp').innerHTML = skills[i].xp
   
     }
+    for (i=0; i<8; i++) {
+        document.getElementById(i + 'activity_name').innerHTML = minigames[i].name
+        document.getElementById(i + 'activity_score').innerHTML = minigames[i].score
+        document.getElementById(i + 'activity_rank').innerHTML = minigames[i].rank
+    }
   
   
     // document.getElementById("static-info").style.visibility = "visible";
     document.getElementById("username").innerHTML = player_name.replace('_', ' ')
-    document.getElementById("avatar").src = "http://secure.runescape.com/m=avatar-rs/" + player_name + "/chat.png"
-    document.getElementById("runescore").innerHTML = minigames[52].score
-    document.getElementById("runescore-rank").innerHTML = minigames[52].rank
+
     document.getElementById("total-xp").innerHTML = skills[0].xp
     document.getElementById("total-xp-rank").innerHTML = skills[0].rank
     var profile_info = document.getElementById("profile-info")
@@ -202,12 +129,12 @@
     stat_table.style.display = "block"
   
     document.getElementById("loading").style.visibility = "hidden";
-  
+    
   }
   
   
   function loadActivities (res_dict){
-    for (var j = 0; j < 20; j++) {
+    for (var j = 0; j < 8; j++) {
         // console.log(res_dict['activities'][j]['text'])
         var act_text = res_dict['activities'][j]['text']
         var xp_index = act_text.indexOf('XP')
@@ -223,18 +150,14 @@
     activity_table.style.display = "block"
   
   }
-  
-  function clearActivities(){
-    var activity_table = document.getElementById("activity-table")
-    activity_table.style.display = "none"
-  }
+
   
   function create_table(){
     var table = document.getElementById("stat-table")
     // var overall = table.appendChild(document.createElement("td"))
     // overall.id = "overall"
     console.log("hello")
-    for (var i = 0; i < 28; i++) {
+    for (var i = 0; i < 24; i++) {
         table.appendChild(document.createElement("tr"))
         var x = table.appendChild(document.createElement("td"))
         x.id = i + 'name'
@@ -256,10 +179,17 @@
     document.getElementById('0name').style = "font-weight:bold;"
   
     var activity = document.getElementById("activity-table")
-    for (i = 0; i < 20; i++) {
+    for (i = 0; i < 8; i++) {
+        // activity.appendChild(document.createElement("tr"))
+        // var n = activity.appendChild(document.createElement("td"))
+        // n.id = 'activity' + i
         activity.appendChild(document.createElement("tr"))
-        var n = activity.appendChild(document.createElement("td"))
-        n.id = 'activity' + i
+        var x = activity.appendChild(document.createElement("td"))
+        x.id = i + 'activity_name'
+        var t = activity.appendChild(document.createElement("td"))
+        t.id = i + 'activity_score'
+        var y = activity.appendChild(document.createElement("td"))
+        y.id = i + 'activity_rank'    
     }
   
 }
